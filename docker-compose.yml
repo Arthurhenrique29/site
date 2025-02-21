@@ -1,9 +1,12 @@
-version: '3'
+version: '3.8'
 
 services:
   web:
-    build: .  # Constrói a imagem a partir do Dockerfile
-    container_name: site
-    restart: unless-stopped
+    image: nginx:alpine
+    volumes:
+      - ./html:/usr/share/nginx/html  # Aponte para a pasta HTML
     ports:
-      - "80:80"  # Mapeia a porta 80 do host para a porta 80 do containerrm -rf .git
+      - "80:80"
+    deploy:
+      restart_policy:
+        condition: on-failure
